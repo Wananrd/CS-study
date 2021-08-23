@@ -1,9 +1,11 @@
 <table>
     <tr>
         <th>
-        <a herf="">算法</a><br/>
+            <a herf="https://gitee.com/WananRd/cs-study/blob/master/notes/Algorithms/ACWing.md">算法</a><br/>
         </th>
-        <th>Java</th>
+        <th>
+            <a herf="https://gitee.com/WananRd/cs-study/blob/master/notes/Java/JavaBase.md">Java</a><br/>
+        </th>
         <th>数据库</th>
         <th>网络</th>
         <th>操作系统</th>

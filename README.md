@@ -1,11 +1,30 @@
-| [算法](https://gitee.com/WananRd/cs-study/blob/master/notes/Algorithms/ACWing.md) | 描述   | 实体名称        |
-| -------- | ------ | --------------- |
+| <a id="alg"></a>算法 | Java | 操作系统 | 网络 | 系统设计 | 工具 |
+| --- | --- | --- | --- | --- | --- |
 
-#### 特技
+### <a herf="#alg">算法</a>
 
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  Gitee 官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解 Gitee 上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是 Gitee 最有价值开源项目，是综合评定出的优秀开源项目
-5.  Gitee 官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  Gitee 封面人物是一档用来展示 Gitee 会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+* [算法](https://blog.gitee.com)
+### Java
+* JavaSE
+* JavaWeb
+* JavaFrame
+* JUC
+* JVM
+
+### 操作系统
+* 操作系统
+* Linux
+
+### 网络
+* 网络
+* Http
+
+### 数据库
+
+* MySQL基础
+* MySQL进阶
+* Redis
+
+### 工具
+
+* Git

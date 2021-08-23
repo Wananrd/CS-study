@@ -3,7 +3,7 @@
 
 ### 算法
 
-* [算法](https://gitee.com/WananRd/cs-study/blob/master/notes/Algorithms/Algorithm.md)
+* [算法模板](https://gitee.com/WananRd/cs-study/blob/master/notes/Algorithms)
 ### Java
 * [JavaSE](https://gitee.com/WananRd/cs-study/blob/master/notes/Java/JavaSE.md)
 * [JavaWeb](https://gitee.com/WananRd/cs-study/blob/master/notes/Java/JavaWeb.md)
@@ -12,11 +12,11 @@
 * [JVM](https://gitee.com/WananRd/cs-study/blob/master/notes/Java/JVM.md)
 
 ### 操作系统
-* [操作系统](https://gitee.com/WananRd/cs-study/blob/master/notes/OS/os.md)
+* [操作系统](https://gitee.com/WananRd/cs-study/blob/master/notes/OS/OS.md)
 * [Linux](https://gitee.com/WananRd/cs-study/blob/master/notes/OS/Linux.md)
 
 ### 网络
-* [网络](https://gitee.com/WananRd/cs-study/blob/master/notes/netWork/Newwork.md)
+* [网络](https://gitee.com/WananRd/cs-study/blob/master/notes/netWork/Network.md)
 * [Http](https://gitee.com/WananRd/cs-study/blob/master/notes/netWork/Http.md)
 
 ### 数据库

@@ -3,7 +3,7 @@
 
 ### 算法
 
-* [算法模板](https://gitee.com/WananRd/cs-study/blob/master/notes/Algorithms)
+* [算法模板](https://gitee.com/WananRd/cs-study/blob/master/notes/Algorithms/Algorithm.md)
 ### Java
 * [JavaSE](https://gitee.com/WananRd/cs-study/blob/master/notes/Java/JavaSE.md)
 * [JavaWeb](https://gitee.com/WananRd/cs-study/blob/master/notes/Java/JavaWeb.md)

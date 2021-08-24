@@ -4,7 +4,7 @@
   * KMP
   * Trim
 
-# <div id = "1">数据结构</div>
+# <div id = "栈与队列">数据结构</div>
 
 
 ## 链表与邻接表
@@ -85,7 +85,7 @@ void remove(int a)
 }
 ~~~
 
-## <div id = "1">栈与队列git</div>
+## 栈与队列
 
 **栈**
 

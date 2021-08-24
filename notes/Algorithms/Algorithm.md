@@ -1,6 +1,6 @@
 ## 算法
 
-### 基础算法
+### [基础算法](https://gitee.com/WananRd/cs-study/blob/master/notes/Algorithms/BaseAlgorithm.md)
 ### 数据结构
 ### 搜索与图论
 ### 数学知识

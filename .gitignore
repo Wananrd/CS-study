@@ -1,3 +1,30 @@
+*.class
+*.log
+*.lock
+
+# Package File #
+*.jar
+*.war
+*.ear
+target/
+
+# idea
+.idea/
+*.xml
+
+# IDEA #
+*.iml
+*.ipr
+*.iws
+.idea
+.classpath
+.project
+.settings/
+bin/
+
+#.log
+tmp/
+
 # Build and Release Folders
 bin-debug/
 bin-release/
@@ -12,7 +39,6 @@ bin-release/
 *.air
 *.ipa
 *.apk
-*.idea
 
 # Project files, i.e. `.project`, `.actionScriptProperties` and `.flexProperties`
 # should NOT be excluded as they contain compiler settings and other important

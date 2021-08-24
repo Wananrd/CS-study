@@ -1,10 +1,10 @@
-* [数据结构](#anchor)
+* <a href="#1">数据结构</a>
   * 链表与邻接表
-  * [栈与队列](#anchor2)
+  * <a href="#2">栈与队列</a>
   * KMP
   * Trim
 
-# <span id = "anchor">数据结构</span>
+# <div id = "1">数据结构</div>
 
 
 ## 链表与邻接表
@@ -85,7 +85,7 @@ void remove(int a)
 }
 ~~~
 
-## <span id = "anchor2">栈与队列</span>
+## <div id = "1">栈与队列git</div>
 
 **栈**
 

@@ -22,7 +22,7 @@ select * from T where ID=10;
 
 总的来说分为两层：`server层`与`存储引擎层`
 
-<img src="E:\gitcode\cs-study\pic\1jg.jpg" alt="MySQL架构图" style="zoom:25%;" />
+<img src="https://gitee.com/WananRd/cs-study/blob/master/pic/1jg.jpg" alt="MySQL架构图" style="zoom:25%;" />
 
 有了这个基础的认知下面将 select * from T where ID=10;的执行流程在下面走一遍。
 

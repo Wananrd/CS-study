@@ -1,8 +1,8 @@
 * JavaSE
-  * <a href="#hjdj">零、环境搭建</a>
+  * <a href="#环境搭建">零、环境搭建</a>
   * 一、基础知识
 
-## <div id = "hjdj">环境搭建</div>
+## <div id = "环境搭建">环境搭建</div>
 
 
 JDK：编写Java程序的程序员使用的软件

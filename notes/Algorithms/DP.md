@@ -3,7 +3,7 @@
     * [背包问题](#背包问题)
       * [01背包](#01背包)
       * [完全背包](#完全背包)
-        * [01背包与完全背包的区别](#01背包与完全背包的区别)
+        * [01背包与完全背包区别](#01背包与完全背包区别)
       * [多重背包](#多重背包)
          * [二进制优化](#二进制优化)
       * [分组背包](#分组背包)
@@ -648,8 +648,6 @@ int main()
 4
 ```
 
-
-
 **分析**
 
 ~~~
@@ -711,7 +709,35 @@ int main()
 **代码**
 
 ~~~cpp
-#include <iostream>using namespace std;const int N = 100010;int n;int a[N], q[N];int main(){    cin >> n;        for(int i = 0; i < n; i ++) cin >> a[i];        int len = 0;    q[0] = -2e9;    for(int i = 0; i < n; i ++){//利用二分        int l = 0, r = len;        while(l < r){            int mid = l + r + 1 >> 1;//向上取整            if(q[mid] < a[i]) l = mid;            else r = mid - 1;        }        len = max(len, r + 1);        q[r + 1] = a[i];    }    cout << len << endl;    return 0;}
+#include <iostream>
+
+using namespace std;
+
+const int N = 100010;
+int n;
+int a[N], q[N];
+
+int main()
+{
+    cin >> n;
+    
+    for(int i = 0; i < n; i ++) cin >> a[i];
+    
+    int len = 0;
+    q[0] = -2e9;
+    for(int i = 0; i < n; i ++){//利用二分
+        int l = 0, r = len;
+        while(l < r){
+            int mid = l + r + 1 >> 1;//向上取整
+            if(q[mid] < a[i]) l = mid;
+            else r = mid - 1;
+        }
+        len = max(len, r + 1);
+        q[r + 1] = a[i];
+    }
+    cout << len << endl;
+    return 0;
+}
 ~~~
 
 
@@ -757,15 +783,43 @@ int main()
 **题目分析**
 
 ~~~
-状态表示f(i,j):所有在第一个序列的前i个字母中出现，且在第二个序列的前j个字母中出现的子序列		属性:Max 状态计算f(i,j) -- [00|01|10|11]		00:不选ai、bj  --  f[i-1,j-1]		01:不选ai、选bj  ∈  f[i-1,j]		10:选ai、不选bj  ∈  f[i,j-1]		11:选ai、bj  --  f[i-1,j-1] + 1其中f[i-1,j-1]  ∈  [ f[i-1,j] | f[i,j-1] ]
+状态表示f(i,j):所有在第一个序列的前i个字母中出现，且在第二个序列的前j个字母中出现的子序列
+		属性:Max 
+状态计算f(i,j) -- [00|01|10|11]
+		00:不选ai、bj  --  f[i-1,j-1]
+		01:不选ai、选bj  ∈  f[i-1,j]
+		10:选ai、不选bj  ∈  f[i,j-1]
+		11:选ai、bj  --  f[i-1,j-1] + 1
+其中f[i-1,j-1]  ∈  [ f[i-1,j] | f[i,j-1] ]
 ~~~
-
-
 
 **代码**
 
 ~~~cpp
-#include <iostream>#include <algorithm>using namespace std;const int N = 1010;char a[N], b[N];int f[N][N];int n, m;int main(){    cin >> n >> m;    scanf("%s%s",a + 1, b + 1);        for(int i = 1; i <= n; i ++)        for(int j = 0; j <= m; j ++){            f[i][j] = max(f[i - 1][j], f[i][j - 1]);            f[i][j] = max(f[i][j], f[i - 1][j - 1] + (a[i] == b[j]));        }        cout << f[n][m] << endl;    return 0;}
+#include <iostream>
+#include <algorithm>
+
+using namespace std;
+
+const int N = 1010;
+char a[N], b[N];
+int f[N][N];
+int n, m;
+
+int main()
+{
+    cin >> n >> m;
+    scanf("%s%s",a + 1, b + 1);
+    
+    for(int i = 1; i <= n; i ++)
+        for(int j = 0; j <= m; j ++){
+            f[i][j] = max(f[i - 1][j], f[i][j - 1]);
+            f[i][j] = max(f[i][j], f[i - 1][j - 1] + (a[i] == b[j]));
+        }
+    
+    cout << f[n][m] << endl;
+    return 0;
+}
 ~~~
 
 
@@ -819,7 +873,12 @@ int main()
 **分析**
 
 ~~~
-状态表示f(i,j):将所有a[1~i]变成b[1~j]的操作方式		属性:Min状态计算f(i,j)  --  [删|增|改]		删:a(i-1)与bj匹配  --  f(i-1,j)+1		增:ai与b(j-1)匹配  --  f(i,j-1)+1		改:i-1与j-1匹配 ai变成bj? --  f(i-1,j-1)+1/0
+状态表示f(i,j):将所有a[1~i]变成b[1~j]的操作方式
+		属性:Min
+状态计算f(i,j)  --  [删|增|改]
+		删:a(i-1)与bj匹配  --  f(i-1,j)+1
+		增:ai与b(j-1)匹配  --  f(i,j-1)+1
+		改:i-1与j-1匹配 ai变成bj? --  f(i-1,j-1)+1/0
 ~~~
 
 
@@ -827,7 +886,32 @@ int main()
 **代码**
 
 ~~~cpp
-#include<iostream>#include<algorithm>using namespace std;const int N = 1010;int n, m;char a[N], b[N];int f[N][N];int main(){    scanf("%d%s", &n, a + 1);    scanf("%d%s", &m, b + 1);        for(int i = 0; i <= m; i ++) f[0][i] = i;//a[0]匹配b[i],增加a的长度    for(int i = 0; i <= n; i ++) f[i][0] = i;//把a的前i个字母与b0匹配，删除a的字母长度        for(int i = 1; i <= n; i ++){        for(int j = 1; j <= m; j ++){            f[i][j] = min(f[i - 1][j] + 1, f[i][j - 1] + 1);            f[i][j] = min(f[i][j], f[i - 1][j - 1] + (a[i] != b[j]));        }    }    cout << f[n][m] << endl;    return 0;}
+#include<iostream>
+#include<algorithm>
+
+using namespace std;
+
+const int N = 1010;
+int n, m;
+char a[N], b[N];
+int f[N][N];
+
+int main(){
+    scanf("%d%s", &n, a + 1);
+    scanf("%d%s", &m, b + 1);
+    
+    for(int i = 0; i <= m; i ++) f[0][i] = i;//a[0]匹配b[i],增加a的长度
+    for(int i = 0; i <= n; i ++) f[i][0] = i;//把a的前i个字母与b0匹配，删除a的字母长度
+    
+    for(int i = 1; i <= n; i ++){
+        for(int j = 1; j <= m; j ++){
+            f[i][j] = min(f[i - 1][j] + 1, f[i][j - 1] + 1);
+            f[i][j] = min(f[i][j], f[i - 1][j - 1] + (a[i] != b[j]));
+        }
+    }
+    cout << f[n][m] << endl;
+    return 0;
+}
 ~~~
 
 
@@ -883,7 +967,54 @@ int main()
 **代码**
 
 ~~~cpp
-#include <iostream>#include <algorithm>#include <cstring>using namespace std;const int M = 1010;int n, m;char str[M][M];int f[M][M];int edit_distance(char a[],char b[]){    int la = strlen(a + 1), lb = strlen(b + 1);        for(int i = 0; i <= lb; i ++) f[0][i] = i;    for(int i = 0; i <= la; i ++) f[i][0] = i;        for(int i = 1; i <= la; i ++){        for(int j = 1; j <= lb; j ++){            f[i][j] = min(f[i - 1][j] + 1, f[i][j - 1] + 1);            f[i][j] = min(f[i][j], f[i - 1][j - 1] + (a[i] != b[j]));        }    }    return f[la][lb];}int main(){    scanf("%d%d", &n, &m);        for(int i = 0; i < n; i ++) scanf("%s", str[i] + 1);        while(m --){        char s[M];        int limit;        scanf("%s%d", s + 1, &limit);        int res = 0;        for(int i = 0; i < n; i ++)            if(edit_distance(str[i], s) <= limit)                res ++;                printf("%d\n", res);    }        return 0;}
+#include <iostream>
+#include <algorithm>
+#include <cstring>
+
+using namespace std;
+
+const int M = 1010;
+int n, m;
+char str[M][M];
+int f[M][M];
+
+int edit_distance(char a[],char b[])
+{
+    int la = strlen(a + 1), lb = strlen(b + 1);
+    
+    for(int i = 0; i <= lb; i ++) f[0][i] = i;
+    for(int i = 0; i <= la; i ++) f[i][0] = i;
+    
+    for(int i = 1; i <= la; i ++){
+        for(int j = 1; j <= lb; j ++){
+            f[i][j] = min(f[i - 1][j] + 1, f[i][j - 1] + 1);
+            f[i][j] = min(f[i][j], f[i - 1][j - 1] + (a[i] != b[j]));
+        }
+    }
+    return f[la][lb];
+}
+
+int main()
+{
+    scanf("%d%d", &n, &m);
+    
+    for(int i = 0; i < n; i ++) scanf("%s", str[i] + 1);
+    
+    while(m --){
+        char s[M];
+        int limit;
+        scanf("%s%d", s + 1, &limit);
+        int res = 0;
+
+        for(int i = 0; i < n; i ++)
+            if(edit_distance(str[i], s) <= limit)
+                res ++;
+        
+        printf("%d\n", res);
+    }
+    
+    return 0;
+}
 ~~~
 
 
@@ -937,7 +1068,13 @@ int main()
 **题目分析**
 
 ~~~
-状态表示f(i,j):所有将第i堆石子到第j堆石子合并成一堆石子的合并方式			属性:Min状态计算f(i,j) --  [1|2|3|……|k-2|k-1]一堆石子   i———————————j可以分成   [i,k],[k+1,j]f[i,j] = min{f[i,k] + f[k+1,j] + s[j] - s[i-1]}k:[l,j-1]
+状态表示f(i,j):所有将第i堆石子到第j堆石子合并成一堆石子的合并方式
+			属性:Min
+状态计算f(i,j) --  [1|2|3|……|k-2|k-1]
+
+一堆石子   i———————————j
+可以分成   [i,k],[k+1,j]
+f[i,j] = min{f[i,k] + f[k+1,j] + s[j] - s[i-1]}k:[l,j-1]
 ~~~
 
 
@@ -945,7 +1082,39 @@ int main()
 **代码**
 
 ~~~cpp
-#include <iostream>#include <algorithm>using namespace std;const int N = 310;int n;int s[N];int f[N][N];int main(){    cin >> n;    for (int i = 1; i <= n; i ++) {        cin >> s[i];        s[i] += s[i - 1];    }    // 区间 DP 枚举套路：长度+左端点     for (int len = 1; len < n; len ++) { // len表示i和j堆下标的差值        for (int i = 1; i + len <= n; i ++) {            int j = i + len; // 自动得到右端点            f[i][j] = 1e8;            for (int k = i; k <= j - 1; k ++) { // 必须满足k + 1 <= j                f[i][j] = min(f[i][j], f[i][k] + f[k + 1][j] + s[j] - s[i - 1]);            }        }    }    cout << f[1][n] << endl;    return 0;}
+#include <iostream>
+#include <algorithm>
+
+using namespace std;
+
+const int N = 310;
+int n;
+int s[N];
+int f[N][N];
+
+int main(){
+    cin >> n;
+
+    for (int i = 1; i <= n; i ++) {
+        cin >> s[i];
+        s[i] += s[i - 1];
+    }
+
+    // 区间 DP 枚举套路：长度+左端点 
+    for (int len = 1; len < n; len ++) { // len表示i和j堆下标的差值
+        for (int i = 1; i + len <= n; i ++) {
+            int j = i + len; // 自动得到右端点
+            f[i][j] = 1e8;
+            for (int k = i; k <= j - 1; k ++) { // 必须满足k + 1 <= j
+                f[i][j] = min(f[i][j], f[i][k] + f[k + 1][j] + s[j] - s[i - 1]);
+            }
+        }
+    }
+
+    cout << f[1][n] << endl;
+
+    return 0;
+}
 ~~~
 
 
@@ -993,7 +1162,14 @@ int main()
 **法一分析**
 
 ~~~
-状态表示f(i,j):从1~i中选,体积恰好为j			属性:数量状态计算f(i,j)  --  [0|1|2|……|s]			0  --  f(i-1,j)			1  --  f(i-1,j-i)			s  --  f(i-1,j-si)可以从完全背包问题角度来思考即将每个背包容量变为i
+状态表示f(i,j):从1~i中选,体积恰好为j
+			属性:数量
+状态计算f(i,j)  --  [0|1|2|……|s]
+			0  --  f(i-1,j)
+			1  --  f(i-1,j-i)
+			s  --  f(i-1,j-si)
+可以从完全背包问题角度来思考
+即将每个背包容量变为i
 ~~~
 
 
@@ -1001,7 +1177,28 @@ int main()
 **代码**
 
 ~~~cpp
-#include <iostream>#include <algorithm>using namespace std;const int N = 1010, mod = 1e9 + 7;int n;int f[N];int main(){    cin >> n;    f[0] = 1;    for(int i = 1;i <= n; i ++){        for(int j = i; j <= n; j++){            f[j] = (f[j] + f[j-i]) % mod;        }    }    cout << f[n] << endl;        return 0;}
+#include <iostream>
+#include <algorithm>
+
+using namespace std;
+
+const int N = 1010, mod = 1e9 + 7;
+int n;
+int f[N];
+
+int main()
+{
+    cin >> n;
+    f[0] = 1;
+    for(int i = 1;i <= n; i ++){
+        for(int j = i; j <= n; j++){
+            f[j] = (f[j] + f[j-i]) % mod;
+        }
+    }
+    cout << f[n] << endl;
+    
+    return 0;
+}
 ~~~
 
 
@@ -1009,7 +1206,12 @@ int main()
 **法二分析**
 
 ~~~
-状态表示f(i,j):所有总和是i并且恰好表示成j个数的和的方案			属性:数量状态计算f(i,j)  --  [最小值1|最小值>1]			最小值=1:f(i-1,j-1)			最小值>1:f(i-j,j)状态转移方程f(i,j) = f(i-1,j-1)+f(i-j,j)
+状态表示f(i,j):所有总和是i并且恰好表示成j个数的和的方案
+			属性:数量
+状态计算f(i,j)  --  [最小值1|最小值>1]
+			最小值=1:f(i-1,j-1)
+			最小值>1:f(i-j,j)
+状态转移方程f(i,j) = f(i-1,j-1)+f(i-j,j)
 ~~~
 
 
@@ -1017,7 +1219,31 @@ int main()
 **代码**
 
 ~~~cpp
-#include <iostream>#include <algorithm>using namespace std;const int N = 1010, mod = 1e9 + 7;int n;int f[N][N];int main(){    cin >> n;    f[0][0] = 1;    for(int i = 1; i <= n; i ++){        for(int j = 1; j <= i; j ++){            f[i][j] = (f[i - 1][j - 1] + f[i - j][j]) % mod;        }    }        int res = 0;    for(int i = 1; i <= n; i ++){        res = (res + f[n][i]) % mod;    }    cout << res << endl;}
+#include <iostream>
+#include <algorithm>
+
+using namespace std;
+
+const int N = 1010, mod = 1e9 + 7;
+int n;
+int f[N][N];
+
+int main()
+{
+    cin >> n;
+    f[0][0] = 1;
+    for(int i = 1; i <= n; i ++){
+        for(int j = 1; j <= i; j ++){
+            f[i][j] = (f[i - 1][j - 1] + f[i - j][j]) % mod;
+        }
+    }
+    
+    int res = 0;
+    for(int i = 1; i <= n; i ++){
+        res = (res + f[n][i]) % mod;
+    }
+    cout << res << endl;
+}
 ~~~
 
 
@@ -1072,7 +1298,11 @@ Ural 大学有 N 名职员，编号为 1∼N。
 **分析**
 
 ~~~
-状态表示f[u,0]:所有以u为根的子树中选，并且不选u这个点的方案       f[u,1]:所有以u为根的子树中选，并且选u的方案     属性:Max状态计算  f[u,0]  --  ∑max(f(si,0),f(si,1))		 f[u,1]  --  ∑f(si,0)
+状态表示f[u,0]:所有以u为根的子树中选，并且不选u这个点的方案
+       f[u,1]:所有以u为根的子树中选，并且选u的方案
+     属性:Max
+状态计算  f[u,0]  --  ∑max(f(si,0),f(si,1))
+		 f[u,1]  --  ∑f(si,0)
 ~~~
 
 
@@ -1080,7 +1310,60 @@ Ural 大学有 N 名职员，编号为 1∼N。
 **代码**
 
 ~~~cpp
-#include <iostream>#include <algorithm>#include <cstring>using namespace std;const int N = 6010;int n;int happy[N];int h[N], e[N], ne[N], idx;int f[N][2];bool has_father[N];void add(int a, int b){    e[idx] = b;    ne[idx] = h[a];    h[a] = idx ++;}void dfs(int u){    f[u][1] = happy[u];        for(int i = h[u]; i != -1; i = ne[i]){        int j = e[i];        dfs(j);        f[u][0] += max(f[j][0], f[j][1]);        f[u][1] += f[j][0];    }}int main(){    cin >> n;        for(int i = 1; i <= n; i ++) cin >> happy[i];        memset(h, -1, sizeof h);        for(int i = 0; i < n - 1; i ++){        int a, b;        scanf("%d%d", &a, &b);        has_father[a] = true;        add(b, a);    }        int root = 1;        while(has_father[root]) root ++;        dfs(root);        printf("%d\n",max(f[root][0],f[root][1]));    return 0;}
+#include <iostream>
+#include <algorithm>
+#include <cstring>
+
+using namespace std;
+
+const int N = 6010;
+int n;
+int happy[N];
+int h[N], e[N], ne[N], idx;
+int f[N][2];
+bool has_father[N];
+
+void add(int a, int b){
+    e[idx] = b;
+    ne[idx] = h[a];
+    h[a] = idx ++;
+}
+
+void dfs(int u){
+    f[u][1] = happy[u];
+    
+    for(int i = h[u]; i != -1; i = ne[i]){
+        int j = e[i];
+        dfs(j);
+        f[u][0] += max(f[j][0], f[j][1]);
+        f[u][1] += f[j][0];
+    }
+}
+
+int main()
+{
+    cin >> n;
+    
+    for(int i = 1; i <= n; i ++) cin >> happy[i];
+    
+    memset(h, -1, sizeof h);
+    
+    for(int i = 0; i < n - 1; i ++){
+        int a, b;
+        scanf("%d%d", &a, &b);
+        has_father[a] = true;
+        add(b, a);
+    }
+    
+    int root = 1;
+    
+    while(has_father[root]) root ++;
+    
+    dfs(root);
+    
+    printf("%d\n",max(f[root][0],f[root][1]));
+    return 0;
+}
 ~~~
 
 
@@ -1143,7 +1426,13 @@ Ural 大学有 N 名职员，编号为 1∼N。
 **题目分析**
 
 ~~~
-状态表示f(i,j):所有从(i,j)开始滑的路径			属性:Max状态计算f(i,j)  --  max{存在[上|右|左|下]}			上:f(i-1,j)+1			右:f(i,j+1)+1			左:f(i,j-1)+1			下:f(i+1,j)+1
+状态表示f(i,j):所有从(i,j)开始滑的路径
+			属性:Max
+状态计算f(i,j)  --  max{存在[上|右|左|下]}
+			上:f(i-1,j)+1
+			右:f(i,j+1)+1
+			左:f(i,j-1)+1
+			下:f(i+1,j)+1
 ~~~
 
 
@@ -1151,7 +1440,53 @@ Ural 大学有 N 名职员，编号为 1∼N。
 **代码**
 
 ~~~cpp
-#include <iostream>#include <cstring>#include <algorithm>using namespace std;const int N = 310;int n, m;int h[N][N];int f[N][N];int next[4][2] = {{0,1},{1,0},{0,-1},{-1,0}};int dp(int x, int y){    int &v = f[x][y];    if(v != -1) return v;        v = 1;    for(int k = 0; k < 4; k ++){        int tx = x + next[k][0], ty = y + next[k][1];        if(tx >= 1 && tx <= n && ty >= 1 && ty <= m && h[tx][ty] < h[x][y]){            v = max(v, dp(tx, ty) + 1);        }    }    return v;}int main(){    scanf("%d%d", &n, &m);        for(int i = 1; i <= n; i ++){        for(int j = 1; j <= m; j ++){            cin >> h[i][j];        }    }    memset(f, -1, sizeof f);        int res = 0;    for(int i = 1; i <= n; i ++){        for(int j = 1; j <= m; j ++){            res = max(res, dp(i, j));        }    }    cout << res << endl;    return 0;}
+#include <iostream>
+#include <cstring>
+#include <algorithm>
+
+using namespace std;
+
+const int N = 310;
+
+int n, m;
+int h[N][N];
+int f[N][N];
+int next[4][2] = {{0,1},{1,0},{0,-1},{-1,0}};
+
+int dp(int x, int y){
+    int &v = f[x][y];
+    if(v != -1) return v;
+    
+    v = 1;
+    for(int k = 0; k < 4; k ++){
+        int tx = x + next[k][0], ty = y + next[k][1];
+        if(tx >= 1 && tx <= n && ty >= 1 && ty <= m && h[tx][ty] < h[x][y]){
+            v = max(v, dp(tx, ty) + 1);
+        }
+    }
+    return v;
+}
+
+int main()
+{
+    scanf("%d%d", &n, &m);
+    
+    for(int i = 1; i <= n; i ++){
+        for(int j = 1; j <= m; j ++){
+            cin >> h[i][j];
+        }
+    }
+    memset(f, -1, sizeof f);
+    
+    int res = 0;
+    for(int i = 1; i <= n; i ++){
+        for(int j = 1; j <= m; j ++){
+            res = max(res, dp(i, j));
+        }
+    }
+    cout << res << endl;
+    return 0;
+}
 ~~~
 
 
@@ -1167,6 +1502,11 @@ Ural 大学有 N 名职员，编号为 1∼N。
 ### dp通解
 
 ~~~
-dp: 状态表示f(i,j)//考虑维度		集合?		属性Max,Min,数量?	状态计算--集合划分，看最后一步				不重:当属性为数量不能够重复				不漏
+dp: 状态表示f(i,j)//考虑维度
+		集合?
+		属性Max,Min,数量?
+	状态计算--集合划分，看最后一步
+				不重:当属性为数量不能够重复
+				不漏
 ~~~
 

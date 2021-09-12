@@ -1,6 +1,12 @@
 * [最短路径](#最短路径)
-    * [单源汇最短路径](#单源汇最短路径)
-    * [多源汇最短路径](#多源汇最短路径)
+    * [单源汇最短路径](#单源汇最短路)
+      * [朴素Dijkstra算法]()
+      * [堆优化Dijkstra算法]()
+      * [Bellman-Ford算法]()
+      * [SPFA算法]()
+    * [多源汇最短路径](#多源汇最短路)
+      * [Ford算法]()
+      * [总结]()
     * [最小生成树](#最小生成树)
     * [朴素Prim算法](#朴素Prim算法)
     * [Kruskal算法](#Kruskal算法)
@@ -13,18 +19,7 @@
 
 **思维导图**
 
-~~~mermaid
-graph LR
-A(最短路径)-->B1(单源汇最短路径)
-A(最短路径)-->B2(多源汇最短路径)
-B1-->C1(所有边权都是正数)
-B1-->C2(存在负权边)
-C1-->D1(朴素Dijkstra算法)
-C1-->D2(堆优化Dijkstra算法)
-C2-->E1(Bellman-Ford算法)
-C2-->E2(SPFA算法)
-B2-->F1(Floyd算法)
-~~~
+![research](../../pic/13re.png)
 
 **注：一般而言单源汇最短路径使用SPFA算法，当SPFA算法被卡时使用堆优化Dijkstra算法**
 
@@ -353,7 +348,28 @@ B2-->C2(稀疏图)
 **核心代码**
 
 ~~~cpp
-int prim(){    memset(dist, 0x3f, sizeof dist);        //把所有距离初始化为正无穷    int res = 0;    for (int i = 0; i < n; i ++ )       //进行n此迭代    {        int t = -1;        for (int j = 1; j <= n; j ++ )      //找到集合外距离最近的点            if (!st[j] && (t == -1 || dist[t] > dist[j]))                t = j;        if (i && dist[t] == INF) return INF;		//图不连通        if (i) res += dist[t];        for (int j = 1; j <= n; j ++ ) dist[j] = min(dist[j], g[t][j]);     //用t更新其他点到集合的距离                st[t] = true;       //把t加到集合中    }    return res;}
+int prim()
+{
+    memset(dist, 0x3f, sizeof dist);        //把所有距离初始化为正无穷
+
+    int res = 0;
+    for (int i = 0; i < n; i ++ )       //进行n此迭代
+    {
+        int t = -1;
+        for (int j = 1; j <= n; j ++ )      //找到集合外距离最近的点
+            if (!st[j] && (t == -1 || dist[t] > dist[j]))
+                t = j;
+
+        if (i && dist[t] == INF) return INF;		//图不连通
+        if (i) res += dist[t];
+
+        for (int j = 1; j <= n; j ++ ) dist[j] = min(dist[j], g[t][j]);     //用t更新其他点到集合的距离
+        
+        st[t] = true;       //把t加到集合中
+    }
+
+    return res;
+}
 ~~~
 
 
@@ -375,7 +391,38 @@ int prim(){    memset(dist, 0x3f, sizeof dist);        //把所有距离初始�
 **核心代码**
 
 ~~~cpp
-int n, m;		//n点，m边int p[N];		//存储并查集struct Edge		//结构体存储{    int a, b, w;    bool operator < (const Edge & W) const    {        return w < W.w;    }}edges[N];int kruskal(){    sort(edges, edges + m);		//将所有边从小到大排序        for(int i = 1; i <= n; i ++) p[i] = i;//初始化并查集        int res = 0, cnt = 0;    for(int i = 0; i < m; i ++){        int a = edges[i].a, b = edges[i].b, w= edges[i].w;                a = find(a), b = find(b);        if(a != b){		//a、b不连通，将a、b加入集合            p[a] = b;            res += w;            cnt ++;        }    }        if(cnt < n - 1) res INF;    return res;}
+int n, m;		//n点，m边
+int p[N];		//存储并查集
+
+struct Edge		//结构体存储
+{
+    int a, b, w;
+    bool operator < (const Edge & W) const
+    {
+        return w < W.w;
+    }
+}edges[N];
+
+int kruskal(){
+    sort(edges, edges + m);		//将所有边从小到大排序
+    
+    for(int i = 1; i <= n; i ++) p[i] = i;//初始化并查集
+    
+    int res = 0, cnt = 0;
+    for(int i = 0; i < m; i ++){
+        int a = edges[i].a, b = edges[i].b, w= edges[i].w;
+        
+        a = find(a), b = find(b);
+        if(a != b){		//a、b不连通，将a、b加入集合
+            p[a] = b;
+            res += w;
+            cnt ++;
+        }
+    }
+    
+    if(cnt < n - 1) res INF;
+    return res;
+}
 ~~~
 
 ## 二分图
@@ -407,7 +454,18 @@ O(n+m)
 **核心代码**
 
 ~~~cpp
-bool dfs(int u, int c){    color[u] = c;        for(int i = h[u]; i != -1; i = ne[i]){//遍历        int j = e[i];        if(!color[j]){		//若未染色            if(!dfs(j, 3-c)) return false;        }        else if(color[j] == c) return false;    }    return true;}
+bool dfs(int u, int c){
+    color[u] = c;
+    
+    for(int i = h[u]; i != -1; i = ne[i]){//遍历
+        int j = e[i];
+        if(!color[j]){		//若未染色
+            if(!dfs(j, 3-c)) return false;
+        }
+        else if(color[j] == c) return false;
+    }
+    return true;
+}
 ~~~
 
 ### 匈牙利算法
@@ -418,7 +476,7 @@ O(nm)，一般远远小于O(nm)
 
 **算法思路**
 
-![image-20210603210143914](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20210603210143914.png)
+![i14nv](../../pic/14nv.png)
 
 男生追女生，当女生有男友的时候，询问他男友能不能换一个对象，如果能换，则女生空出来，男生则可以和女生在一起。
 
@@ -427,7 +485,36 @@ O(nm)，一般远远小于O(nm)
 **核心代码**
 
 ~~~cpp
-int n1, n2;     // n1表示第一个集合中的点数，n2表示第二个集合中的点数int h[N], e[M], ne[M], idx;     // 邻接表存储所有边，匈牙利算法中只会用到从第一个集合指向第二个集合的边，所以这里只用存一个方向的边int match[N];       // 存储第二个集合中的每个点当前匹配的第一个集合中的点是哪个bool st[N];     // 表示第二个集合中的每个点是否已经被遍历过bool find(int x){    for (int i = h[x]; i != -1; i = ne[i])    {        int j = e[i];        if (!st[j])        {            st[j] = true;            if (match[j] == 0 || find(match[j]))            {                match[j] = x;                return true;            }        }    }    return false;}// 求最大匹配数，依次枚举第一个集合中的每个点能否匹配第二个集合中的点int res = 0;for (int i = 1; i <= n1; i ++ ){    memset(st, false, sizeof st);    if (find(i)) res ++ ;}
+int n1, n2;     // n1表示第一个集合中的点数，n2表示第二个集合中的点数
+int h[N], e[M], ne[M], idx;     // 邻接表存储所有边，匈牙利算法中只会用到从第一个集合指向第二个集合的边，所以这里只用存一个方向的边
+int match[N];       // 存储第二个集合中的每个点当前匹配的第一个集合中的点是哪个
+bool st[N];     // 表示第二个集合中的每个点是否已经被遍历过
+
+bool find(int x)
+{
+    for (int i = h[x]; i != -1; i = ne[i])
+    {
+        int j = e[i];
+        if (!st[j])
+        {
+            st[j] = true;
+            if (match[j] == 0 || find(match[j]))
+            {
+                match[j] = x;
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+// 求最大匹配数，依次枚举第一个集合中的每个点能否匹配第二个集合中的点
+int res = 0;
+for (int i = 1; i <= n1; i ++ )
+{
+    memset(st, false, sizeof st);
+    if (find(i)) res ++ ;
+}
 ~~~
 
 ## 总结

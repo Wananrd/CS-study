@@ -126,8 +126,6 @@ LL merge_sort(int l, int r)
 
 有单调性一定可以二分，二分不一定需要单调性
 
-![image-20210616215429532](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20210616215429532.png)
-
 **本质：**
 
 **一般满足，一半不满足，寻找边界在哪一边**
@@ -345,7 +343,7 @@ vector<int> div(vector<int> &A, int b, int &r)
 
 ### 前缀矩阵和
 
-![image-20210604110850643](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20210604110850643.png)
+![10qz](../../pic/10qz.jpg)
 
 把一个点看成一个格子
 
@@ -420,7 +418,7 @@ for(int i = 0; i < n; i ++){
 
 2. 从st扫描到ed
 
-   三种情况![image-20210604195559823](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20210604195559823.png)
+   三种情况![11qj](../../pic/11qj.jpg)
 
    **核心代码**
 

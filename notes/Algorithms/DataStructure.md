@@ -4,11 +4,17 @@
     * [双链表](#双链表)
   * [栈与队列](#栈与队列)
   * [KMP](#kmp)
-  * [Trim树](#Trim树)
+  * [Trim树](#trim树)
   * [并查集](#并查集)
+  * [手写堆](#手写堆)
   * [哈希表](#哈希表)
+    * [拉链法](#拉链法)
+    * [开放地址法](#开放地址法)
+    * [二次探测法](#二次探测法)
+    * [字符串哈希](#字符串哈希)
   * [树](#树)
-  * [C++STL](#C++STL)
+    * [前序+中序建树]()
+  * [C++STL](#c-stl)
     * [vector](#vector)
     * [pair](#pair)
     * [string](#string)
@@ -228,12 +234,22 @@ for (int i = 1, j = 0; i <= n; i ++ )
 
 高效地存储和查找字符串集合的数据机构
 
-![image-20210608141128893](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20210608141128893.png)
+![12trie](../../pic/12trie.jpg)
 
 插入
 
 ~~~cpp
-void insert(char str[]){    int p = 0;    for(int i = 0; str[i]; i ++)    {        int u = str[i] - '0';        if(!son[p][u]) son[p][u] = ++ idx;        p = son[p][u];    }    cnt[p] ++;}
+void insert(char str[])
+{
+    int p = 0;
+    for(int i = 0; str[i]; i ++)
+    {
+        int u = str[i] - '0';
+        if(!son[p][u]) son[p][u] = ++ idx;
+        p = son[p][u];
+    }
+    cnt[p] ++;
+}
 ~~~
 
 查询
@@ -439,6 +455,21 @@ int find(int x)
     return k;
 }
 ~~~
+### 二次探测法
+
+~~~c++
+int find(int x){
+	int k = x % msize;
+	for(int i = 0; i <= msize; i ++){
+		if(book[(k + i * i) % msize] == false){
+			book[(k + i * i) % msize] = true;
+			return (k + i * i) % msize;
+		}
+	}
+	return -1;
+} 
+~~~
+
 
 
 
@@ -475,6 +506,28 @@ ULL get(int l, int r)
     return h[r] - h[l - 1] * p[r - l + 1];
 }
 ~~~
+
+## 树
+
+### 前序+中序建树
+
+主要思想就是：寻找中序中的根，接着递归左子树，递归右子树
+
+~~~c++
+node* create(int pl, int pr, int il, int ir){
+	if(pl > pr) return NULL;
+	int k = il;//k是做起点
+	while(in[k] != pre[pl]) k ++;
+	node *root = new node();
+	root->data = pre[pl];
+	
+	root->left = create(pl + 1, pl + k - il, il, k - 1);
+	root->right = create(pl + k - il + 1, pr, k + 1, ir);
+	return root; 
+}
+~~~
+
+
 
 
 

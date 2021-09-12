@@ -1,8 +1,53 @@
 * JavaSE
-  * <a href="#零环境搭建">零、环境搭建</a>
-  * <a href="#一基础知识">一、基础知识</a>
+  * <a href="#一基础知识">零、基础知识</a>
+    * 环境搭建
+    * <a href="#一基础知识">命名规范</a>
+    * 数据类型
+    * 输入输出
+    * 循环
+    * 数组
+  * 二、类与对象
+    * 属性与方法
+    * 包装类
+    * 缓存池
+  * 三、关键字
+    * static
+    * final
+  * 四、Object类
+    * equals方法
+    * toString方法
+  * 四、继承
+    * 访问权限
+    * super
+    * 重写与重载
+    * 多态
+    * 抽象类与接口
+  * 五、异常
+  * 六、字符串
+    * 常见用法
+    * String的不可变性
+    * String,StringBuffer,StringBuilder
+    * StringPool
+    * new String("abc")
+    * 类型转换
+  * 七、枚举类&注解
+    * 自定义枚举类
+    * enum关键字
+    * 注解(Annotation)
+  * 八、泛型
+    * 作用
+    * 自定义泛型
+    * 通配符
+  * 九、反射
+    * Class类的实例获取
+    * 创建运行时类的对象
+    * 调用运行时类的指定结构
+  * 十、其他常用类
+    * 日期类
+  
+      
 
-## 零、环境搭建g
+## 零、环境搭建
 
 
 JDK：编写Java程序的程序员使用的软件
@@ -25,7 +70,7 @@ javac是一个Java编译器，它将文件Hello.java编译成Hello.class。
 
 java程序启动Java虚拟机，虚拟机执行编译器编译到类文件中的字节码。
 
-## <div id = "一-基础知识">一、基础知识</div>
+## 一、基础知识
 
 ### 命名规范
 
@@ -34,8 +79,6 @@ java程序启动Java虚拟机，虚拟机执行编译器编译到类文件中的
 **源代码的文件名**：必须与公共类的名字相同[FirstSample.java]
 
 **常量**：常量名使用全大写[public **static final** double CM_PER_INCH = 2.54;]
-
-
 
 
 
@@ -58,6 +101,19 @@ java程序启动Java虚拟机，虚拟机执行编译器编译到类文件中的
 **char**：编码最好采取UTF-8，比较通用
 
 **boolean类型**：布尔类型不能等于整型[boolean flag = 0;]，只能等于true/false;
+
+**大数**
+
+在整数和浮点数精度不能够满足需求，那么可以使用`BigInteger`和`BigDecimal`这两个类。
+
+他们可以实现任意精度的运算。
+
+运算的时候需要使用类中的相应方法，并将其中的类型使用`xxx.valueOf(a)`转换为响应的类型
+
+~~~java
+BigInteger d = c.mutiply(b.add(BigInteger.valueOf(2)));//d = c * 2;
+~~~
+
 
 
 
@@ -110,22 +166,6 @@ while(true){
 System.out.print("跳出循环");
 ~~~
 
-
-
-### 大数
-
-在整数和浮点数精度不能够满足需求，那么可以使用`BigInteger`和`BigDecimal`这两个类。他们可以实现任意精度的运算。
-
-
-
-运算的时候需要使用类中的相应方法，并将其中的类型使用`xxx.valueOf(a)`转换为响应的类型
-
-~~~java
-BigInteger d = c.mutiply(b.add(BigInteger.valueOf(2)));//d = c * 2;
-~~~
-
-
-
 ### 数组
 
 **声明**
@@ -168,4 +208,35 @@ System.out.println(Arrays.toString(luckyNumbers));//[1, 2, 88, 4, 5]
 ~~~java
 Arrays.sort(luckyNumbers);
 ~~~
+
+## 二、类
+
+
+
+### 属性与方法
+
+**属性别名**：成员变量、field、域、字段
+
+**属性**与**局部变量**的异同：
+
+**同**：
+
+1. 格式相同：数据类型 变量名 = 变量值
+2. 先声明后使用
+3. 有其作用域
+
+**异**：
+
+1. 属性直接定义在{}内
+2. 属性拥有权限修饰
+3. **属性有初始值**
+4. **属性加载到堆空间，局部变量加载到栈空间**
+
+
+
+**方法**
+
+程序设计中函数的传参有两种：**按值传递**和**引用传递**
+
+Java语言总是采用**按值传递**。【Java中两个数的交换如何实现？】
 

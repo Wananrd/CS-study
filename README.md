@@ -3,29 +3,31 @@
 
 ### 算法
 
-* [算法模板](https://gitee.com/WananRd/cs-study/blob/master/notes/Algorithms/Algorithm.md)
+* [算法模板](notes/Algorithms/Algorithm.md)
 ### Java
-* [JavaSE](https://gitee.com/WananRd/cs-study/blob/master/notes/Java/JavaSE.md)
-* [JavaWeb](https://gitee.com/WananRd/cs-study/blob/master/notes/Java/JavaWeb.md)
-* [JavaFrame](https://gitee.com/WananRd/cs-study/blob/master/notes/Java/JavaFrame.md)
-* [JUC](https://gitee.com/WananRd/cs-study/blob/master/notes/Java/JUC.md)
-* [JVM](https://gitee.com/WananRd/cs-study/blob/master/notes/Java/JVM.md)
+* [JavaSE](notes/Java/JavaSE.md)
+* [Java容器](notes/Java/JavaContainer.md)
+* [JavaIO](notes/Java/JavaIO.md)
+* [JavaWeb](notes/Java/JavaWeb.md)
+* [JUC](notes/Java/JUC.md)
+* [JVM](notes/Java/JVM.md)
+* [Java新特性](notes/Java/JavaNew.md)
 
 ### 操作系统
-* [操作系统](https://gitee.com/WananRd/cs-study/blob/master/notes/OS/OS.md)
-* [Linux](https://gitee.com/WananRd/cs-study/blob/master/notes/OS/Linux.md)
+* [操作系统](notes/OS/OS.md)
+* [Linux](notes/OS/Linux.md)
 
 ### 网络
-* [网络](https://gitee.com/WananRd/cs-study/blob/master/notes/netWork/Network.md)
-* [Http](https://gitee.com/WananRd/cs-study/blob/master/notes/netWork/Http.md)
+* [网络](notes/netWork/NetWork.md)
+* [Http](notes/netWork/Http.md)
 
 ### 数据库
 
-* [MySQL基础](https://gitee.com/WananRd/cs-study/blob/master/notes/Database/MySQLBase.md)
-* [MySQL进阶](https://gitee.com/WananRd/cs-study/blob/master/notes/Database/MySQL.md)
-* [Redis](https://gitee.com/WananRd/cs-study/blob/master/notes/Database/Redis.md)
+* [MySQL基础](notes/Database/MySQLBase.md)
+* [MySQL进阶](notes/Database/MySQL.md)
+* [Redis](notes/Database/Redis.md)
 
 ### 工具
 
-* [Maven](https://gitee.com/WananRd/cs-study/blob/master/notes/Tools/Maven.md)
-* [Git](https://gitee.com/WananRd/cs-study/blob/master/notes/Tools/Git.md)
+* [Maven](notes/Tools/Maven.md)
+* [Git](notes/Tools/Git.md)

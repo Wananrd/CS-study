@@ -10,7 +10,7 @@
         * [Vector](#vector)
         * [LinkedList](#linkedlist)
         * [HashMap](#hashmap)
-        * [LinkedHashMap](#Linkedhashmap)
+        * [LinkedHashMap](#linkedhashmap)
 
 # Java容器
 

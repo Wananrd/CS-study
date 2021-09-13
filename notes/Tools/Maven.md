@@ -8,7 +8,7 @@
     * [依赖](#3依赖dependencymaven管理依赖)
     * [仓库](#4仓库)
     * [maven的命令](#5maven的命令)
-    * [maven的声明周期和插件](#6maven的声明周期和插件)
+    * [maven的生命周期和插件](#6maven的生命周期和插件)
 * [依赖范围](#依赖范围)
 
 # Maven

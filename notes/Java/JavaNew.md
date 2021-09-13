@@ -2,7 +2,7 @@
     * [Lambda](#lambda)
     * [函数式接口](#函数式接口)
     * [方法引用与构造器引用](#方法引用与构造器引用)
-    * [强大的StreamAPI](#强大的streamapi)
+    * [强大的StreamAPI](#强大的stream-api)
     * [Optional类](#optional)
     * [其他](#其他)
 

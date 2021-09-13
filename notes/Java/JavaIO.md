@@ -1,4 +1,4 @@
-* [JavaIO](#javaio)
+* [JavaIO](#java-io)
     * [一、File操作](#一file操作)
     * [二、字节操作](#二字节操作)
       * [文件复制](#文件复制)
@@ -30,7 +30,7 @@ Java的I/O大概可以分为以下几类：
 * 对象操作：Serializable
 * 网络操作：Socket
 
-![image-20210721145222156](C:\Users\hp\AppData\Roaming\Typora\typora-user-images\image-20210721145222156.png)
+![javaio](../../pic/32javaio.png)
 
 ## 一、File操作
 
@@ -261,7 +261,7 @@ public static void main(String[] args) throws IOException {
 - Socket：客户端类
 - 服务器和客户端通过 InputStream 和 OutputStream 进行输入输出。
 
-![img](https://camo.githubusercontent.com/bb2c014cb6f895ad7ad8c2ab1fcdbbe4103bf2e065e4ec488a6c072daad96d58/68747470733a2f2f63732d6e6f7465732d313235363130393739362e636f732e61702d6775616e677a686f752e6d7971636c6f75642e636f6d2f31653661666663342d313865352d343539362d393665662d6662383463363362663838612e706e67)
+![img](../../pic/33ss.png)
 
 ### TCP网络编程
 

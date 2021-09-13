@@ -1,4 +1,10 @@
-
+* [Java8](#java8)
+    * [Lambda](#lambda)
+    * [函数式接口](#函数式接口)
+    * [方法引用与构造器引用](#方法引用与构造器引用)
+    * [强大的StreamAPI](#强大的streamapi)
+    * [Optional类](#optional)
+    * [其他](#其他)
 
 ## Java8
 
@@ -225,33 +231,65 @@ public static List<String> filterString(List<String> list, Predicate<String> pre
   con1.accept("南京");
   ~~~
 
-  ~~~java
-  //lambdaEmployee emp = new Employee(1001, "Tom", 23, 5600);Supplier<String> sup1 = () -> emp.getName();System.out.println(sup1.get());//对象引用Supplier<String> sup2 = emp::getName;System.out.println(sup2.get());
-  ~~~
+    ~~~java
+    //lambda
+    Employee emp = new Employee(1001, "Tom", 23, 5600);
+    Supplier<String> sup1 = () -> emp.getName();
+    System.out.println(sup1.get());
+    
+    //对象引用
+    Supplier<String> sup2 = emp::getName;
+    System.out.println(sup2.get());
+    ~~~
 
 * 情况二：类 :: 静态方法
 
-  ~~~java
-  //Comparator中的int compare(T t1, T t2)//Integer   中的int compare(T t1, T t2)//lambdaComparator<Integer> com1 = (t1, t2) -> Integer.compare(t1, t2);System.out.println(com1.compare(12, 1));//方法引用Comparator<Integer> com2 = Integer::compare;System.out.println(com2.compare(12, 33));
-  ~~~
+    ~~~java
+    //Comparator中的int compare(T t1, T t2)
+    //Integer   中的int compare(T t1, T t2)
+    
+    //lambda
+    Comparator<Integer> com1 = (t1, t2) -> Integer.compare(t1, t2);
+    System.out.println(com1.compare(12, 1));
+    
+    //方法引用
+    Comparator<Integer> com2 = Integer::compare;
+    System.out.println(com2.compare(12, 33));
+    ~~~
 
-  ~~~java
-  //lambdaFunction<Double, Long> fun1 = d -> Math.round(d);//方法引用Function<Double, Long> fun2 = Math::round;
-  ~~~
+    ~~~java
+    //lambda
+    Function<Double, Long> fun1 = d -> Math.round(d);
+    //方法引用
+    Function<Double, Long> fun2 = Math::round;
+    ~~~
 
 * 情况三：类 :: 非静态方法(难)
 
-  ~~~java
-  Comparator<String> com3 = (s1, s2) -> s1.compareTo(s2);		System.out.println(com3.compare("abc", "abc"));Comparator<String> com4 = String :: compareTo;System.out.println(com4.compare("abcd", "abc"));
-  ~~~
+    ~~~java
+    Comparator<String> com3 = (s1, s2) -> s1.compareTo(s2);		
+    System.out.println(com3.compare("abc", "abc"));
+    
+    Comparator<String> com4 = String :: compareTo;
+    System.out.println(com4.compare("abcd", "abc"));
+    ~~~
 
-  ~~~java
-  BiPredicate<String, String> pre1 = (s1, s2) -> s1.equals(s2);System.out.println(pre1.test("abc", "abdd"));BiPredicate<String, String> pre2 = String::equals;System.out.println(pre2.test("abc", "abd"));
-  ~~~
+    ~~~java
+    BiPredicate<String, String> pre1 = (s1, s2) -> s1.equals(s2);
+    System.out.println(pre1.test("abc", "abdd"));
+    
+    BiPredicate<String, String> pre2 = String::equals;
+    System.out.println(pre2.test("abc", "abd"));
+    ~~~
 
-  ~~~java
-  Employee employee = new Employee(1001, "Jerry", 23, 6000);Function<Employee, String> func1 = e -> e.getName();System.out.println(func1.apply(employee));Function<Employee, String> func2 = Employee::getName;System.out.println(func2.apply(employee));
-  ~~~
+    ~~~java
+    Employee employee = new Employee(1001, "Jerry", 23, 6000);
+    Function<Employee, String> func1 = e -> e.getName();
+    System.out.println(func1.apply(employee));
+    
+    Function<Employee, String> func2 = Employee::getName;
+    System.out.println(func2.apply(employee));
+    ~~~
 
 
 
@@ -260,15 +298,27 @@ public static List<String> filterString(List<String> list, Predicate<String> pre
 类似于方法引用
 
 ~~~java
-Supplier<Employee> sup1 = () -> new Employee();System.out.println(sup1.get());Supplier<Employee> sup2 = Employee :: new;System.out.println(sup2.get());
+Supplier<Employee> sup1 = () -> new Employee();
+System.out.println(sup1.get());
+
+Supplier<Employee> sup2 = Employee :: new;
+System.out.println(sup2.get());
 ~~~
 
 ~~~java
-Function<Integer, Employee> func1 = id -> new Employee(id);Employee employee = func1.apply(1001);Function<Integer, Employee> func2 = Employee :: new;Employee employee2 = func2.apply(1002);
+Function<Integer, Employee> func1 = id -> new Employee(id);
+Employee employee = func1.apply(1001);
+
+Function<Integer, Employee> func2 = Employee :: new;
+Employee employee2 = func2.apply(1002);
 ~~~
 
 ~~~java
-BiFunction<Integer,String, Employee> func3 = (id, name) -> new Employee(id, name);System.out.println(func3.apply(1001, "Tom"));BiFunction<Integer,String, Employee> func4 = Employee :: new;System.out.println(func4.apply(1002, "Jack"));
+BiFunction<Integer,String, Employee> func3 = (id, name) -> new Employee(id, name);
+System.out.println(func3.apply(1001, "Tom"));
+
+BiFunction<Integer,String, Employee> func4 = Employee :: new;
+System.out.println(func4.apply(1002, "Jack"));
 ~~~
 
 
@@ -278,7 +328,13 @@ BiFunction<Integer,String, Employee> func3 = (id, name) -> new Employee(id, name
 可以将数组看作特殊的类。
 
 ~~~java
-Function<Integer, String[]> func5 = length -> new String[length];String[] arr1 = func5.apply(5);System.out.println(Arrays.toString(arr1));Function<Integer, String[]> func6 = String[] :: new;String[] arr2 = func6.apply(6);System.out.println(Arrays.toString(arr2));
+Function<Integer, String[]> func5 = length -> new String[length];
+String[] arr1 = func5.apply(5);
+System.out.println(Arrays.toString(arr1));
+
+Function<Integer, String[]> func6 = String[] :: new;
+String[] arr2 = func6.apply(6);
+System.out.println(Arrays.toString(arr2));
 ~~~
 
 
@@ -321,27 +377,49 @@ StreamAPI是什么？`集合讲的是数据，Stream讲的是计算！`
 
 * **创建Stream方式一：通过集合**
 
-  ~~~java
-  List<String> strings = new LinkedList<>();strings.add("aaa");strings.add("bbb");strings.add("ccc");//default Stream<E> stream():  返回一个顺序流Stream<String> stream = strings.stream();//default Stream<E> parallelStream(): 返回一个并行流Stream<String> parallelStream = strings.parallelStream();
-  ~~~
+    ~~~java
+    List<String> strings = new LinkedList<>();
+    strings.add("aaa");
+    strings.add("bbb");
+    strings.add("ccc");
+    
+    //default Stream<E> stream():  返回一个顺序流
+    Stream<String> stream = strings.stream();
+    
+    //default Stream<E> parallelStream(): 返回一个并行流
+    Stream<String> parallelStream = strings.parallelStream();
+    ~~~
 
 * **方式二：通过数组创建**
 
-  ~~~java
-  int[] arr = new int[]{1,2,3,4,5,6};//调用Arrays类的static<T> Stream<T> stream(T[] arrays):返回一个流IntStream stream = Arrays.stream(arr);String[] strings = new String[]{"A,C", "DDD", "ABC"};Stream<String> stream1 = Arrays.stream(strings);
-  ~~~
+    ~~~java
+    int[] arr = new int[]{1,2,3,4,5,6};
+    //调用Arrays类的static<T> Stream<T> stream(T[] arrays):返回一个流
+    IntStream stream = Arrays.stream(arr);
+    
+    String[] strings = new String[]{"A,C", "DDD", "ABC"};
+    Stream<String> stream1 = Arrays.stream(strings);
+    ~~~
 
 * **方式三：通过Stream的of()**
 
-  ~~~java
-  Stream<Integer> stream = Stream.of(1, 2, 3, 4, 5, 6);
-  ~~~
+    ~~~java
+    Stream<Integer> stream = Stream.of(1, 2, 3, 4, 5, 6);
+    ~~~
 
 * 方式四：创建无限流
 
-  ~~~java
-  //迭代//public static<T> Stream<T> iterator(final T seed, final UnaryOperator<T> f)//遍历前10个偶数Stream.iterate(0,t -> t + 2).limit(10).forEach(System.out::println);//生成//public static<T> Stream<T> generate(Supplier<T> s)Stream.generate(Math::random).limit(10).forEach(System.out::println);
-  ~~~
+    ~~~java
+    //迭代
+    //public static<T> Stream<T> iterator(final T seed, final UnaryOperator<T> f)
+    
+    //遍历前10个偶数
+    Stream.iterate(0,t -> t + 2).limit(10).forEach(System.out::println);
+    
+    //生成
+    //public static<T> Stream<T> generate(Supplier<T> s)
+    Stream.generate(Math::random).limit(10).forEach(System.out::println);
+    ~~~
 
 
 
@@ -349,15 +427,57 @@ StreamAPI是什么？`集合讲的是数据，Stream讲的是计算！`
 
 1. **筛选与切片**
 
-   ~~~java
-   List<Integer> list = new LinkedList<>();list.add(12000);list.add(8000);list.add(5000);list.add(10000);list.add(9000);list.add(9000);list.add(25000);//filter(Predicate p)--接受Lambda，从流中排除某些元素Stream<Integer> stream = list.stream();stream.filter(i -> i > 7000).forEach(System.out::println);System.out.println();//limit(n)--截断流，使其元素不超过给定数量,若流中元素不足n个，则返回空list.stream().limit(2).forEach(System.out::println);System.out.println();//skip(n)--跳过元素，返回list.stream().skip(3).forEach(System.out::println);System.out.println();//distinct()--筛选，去重list.stream().distinct().forEach(System.out::println);
-   ~~~
+    ~~~java
+    List<Integer> list = new LinkedList<>();
+    list.add(12000);
+    list.add(8000);
+    list.add(5000);
+    list.add(10000);
+    list.add(9000);
+    list.add(9000);
+    list.add(25000);
+    //filter(Predicate p)--接受Lambda，从流中排除某些元素
+    Stream<Integer> stream = list.stream();
+    stream.filter(i -> i > 7000).forEach(System.out::println);
+    
+    System.out.println();
+    
+    //limit(n)--截断流，使其元素不超过给定数量,若流中元素不足n个，则返回空
+    list.stream().limit(2).forEach(System.out::println);
+    
+    System.out.println();
+    //skip(n)--跳过元素，返回
+    list.stream().skip(3).forEach(System.out::println);
+    
+    System.out.println();
+    //distinct()--筛选，去重
+    list.stream().distinct().forEach(System.out::println);
+    ~~~
 
 2. **映射**
 
-   ~~~java
-   //映射@Testpublic void test2(){    //map(Function f)    List<String> list = Arrays.asList("aa", "bb", "cc", "dd");    list.stream().map(str -> str.toUpperCase()).forEach(System.out::println);//aa bb cc dd    //flatMap(Function f)：将流中的每个值都换成另一个流，然后把所有的流连起来,类似于addAll    Stream<Character> characterStream = list.stream().flatMap(StreamAPITest1::fromStringToStream);    characterStream.forEach(System.out::println);//a a b b c c d d}//将字符串中的多个字符构成的集合转换为Stream的实例public static Stream<Character> fromStringToStream(String str){    ArrayList<Character> list = new ArrayList<>();    for(Character c : str.toCharArray()){        list.add(c);    }    return list.stream();}
-   ~~~
+    ~~~java
+    //映射
+    @Test
+    public void test2(){
+        //map(Function f)
+        List<String> list = Arrays.asList("aa", "bb", "cc", "dd");
+        list.stream().map(str -> str.toUpperCase()).forEach(System.out::println);//aa bb cc dd
+    
+        //flatMap(Function f)：将流中的每个值都换成另一个流，然后把所有的流连起来,类似于addAll
+        Stream<Character> characterStream = list.stream().flatMap(StreamAPITest1::fromStringToStream);
+        characterStream.forEach(System.out::println);//a a b b c c d d
+    }
+    
+    //将字符串中的多个字符构成的集合转换为Stream的实例
+    public static Stream<Character> fromStringToStream(String str){
+        ArrayList<Character> list = new ArrayList<>();
+        for(Character c : str.toCharArray()){
+            list.add(c);
+        }
+        return list.stream();
+    }
+    ~~~
 
 3. **排序**
 
@@ -463,19 +583,25 @@ Optional类用来避免空指针异常。
 **创建Optional类对象的方法**
 
 ~~~java
-Optional.of(T t)			//创建一个Optional实例，t必须非空Optional.empty()			//创建一个空的Optional实例Optional.ofNullable(T t)	//t可以为null
+Optional.of(T t)			//创建一个Optional实例，t必须非空
+Optional.empty()			//创建一个空的Optional实例
+Optional.ofNullable(T t)	//t可以为null
 ~~~
 
 **判断Optional容器中是否包含对象**
 
 ~~~java
-boolean isPresent()			//判断是否包含对象void ifPresent(Consumer<? super T> consumer)	//如果有值，就执行Consumer接口的实现代码，并且该值会作为参数传给它
+boolean isPresent()			//判断是否包含对象
+void ifPresent(Consumer<? super T> consumer)	//如果有值，就执行Consumer接口的实现代码，并且该值会作为参数传给它
 ~~~
 
 **获取Optional容器的对象**
 
 ~~~java
-T get()				//如果调用对象包含之，则返回该值，否则抛异常T orElse(T other)	//如果有值则将其返回，否则返回otherT orElseGet(Supplier<? extends T> other)	//如果有值则返回，否则返回Supplier接口实现的提供的对象T orElseThrow(Supplier<? extends X> exceptionSupplier)	//如果有值则将其返回，否则抛出Supplier接口实现提供的异常
+T get()				//如果调用对象包含之，则返回该值，否则抛异常
+T orElse(T other)	//如果有值则将其返回，否则返回other
+T orElseGet(Supplier<? extends T> other)	//如果有值则返回，否则返回Supplier接口实现的提供的对象
+T orElseThrow(Supplier<? extends X> exceptionSupplier)	//如果有值则将其返回，否则抛出Supplier接口实现提供的异常
 ~~~
 
 
@@ -483,7 +609,17 @@ T get()				//如果调用对象包含之，则返回该值，否则抛异常T or
 使用例子
 
 ~~~java
-Girl girl = new Girl();girl = null;//ofNullable(T t): t可以为nullOptional<Girl> optionalGirl = Optional.ofNullable(girl);System.out.println(optionalGirl);//orElse(T t):如果当前的Optional内部封装的t是非空的，则返回t//如果t是空的,则返回备胎("赵丽颖")Girl girl1 = optionalGirl.orElse(new Girl("赵丽颖"));System.out.println(girl1);
+Girl girl = new Girl();
+girl = null;
+
+//ofNullable(T t): t可以为null
+Optional<Girl> optionalGirl = Optional.ofNullable(girl);
+System.out.println(optionalGirl);
+
+//orElse(T t):如果当前的Optional内部封装的t是非空的，则返回t
+//如果t是空的,则返回备胎("赵丽颖")
+Girl girl1 = optionalGirl.orElse(new Girl("赵丽颖"));
+System.out.println(girl1);
 ~~~
 
 
